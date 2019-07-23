@@ -28,18 +28,31 @@
       const intro = document.getElementById('intro');
       const body = document.body;
 
-      theo.addEventListener('click', () => {
+      const trigger = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
         theo.classList.add('hide');
         theo.pause();
         intro.currentTime = 0;
         intro.play();
-      });
+      };
 
-      intro.addEventListener('click', () => {
+      const reset = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
         theo.play();
         theo.classList.remove('hide');
         intro.pause();
-      });
+      };
+
+      if ('ontouchstart' in document.documentElement) {
+        theo.addEventListener('touchstart', trigger);
+        intro.addEventListener('touchstart', reset);
+      } else {
+        theo.addEventListener('click', trigger);
+        intro.addEventListener('click', reset);
+      }
+
 
       intro.pause();
       theo.play();
