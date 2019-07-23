@@ -1,0 +1,47 @@
+<html>
+  <head>
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+
+      video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+      }
+
+      .hide {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <video id="intro" src="/assets/intro.m4v"></video>
+    <video id="theo" src="/assets/theo.mp4" autoplay loop></video>
+    <script>
+      const theo = document.getElementById('theo');
+      const intro = document.getElementById('intro');
+      const body = document.body;
+
+      theo.addEventListener('click', () => {
+        theo.classList.add('hide');
+        theo.pause();
+        intro.currentTime = 0;
+        intro.play();
+      });
+
+      intro.addEventListener('click', () => {
+        theo.play();
+        theo.classList.remove('hide');
+        intro.pause();
+      });
+
+      intro.pause();
+      theo.play();
+    </script>
+  </body>
+</html>
