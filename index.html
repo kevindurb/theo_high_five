@@ -45,7 +45,10 @@
         intro.pause();
       };
 
-      if ('ontouchstart' in document.documentElement) {
+      if ('onpointerdown' in document.documentElement) {
+        theo.addEventListener('pointerdown', trigger);
+        intro.addEventListener('pointerdown', reset);
+      } else if ('ontouchstart' in document.documentElement) {
         theo.addEventListener('touchstart', trigger);
         intro.addEventListener('touchstart', reset);
       } else {
