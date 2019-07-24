@@ -28,6 +28,9 @@
       const intro = document.getElementById('intro');
       const body = document.body;
 
+      let triggerTimeout;
+      let resetTimeout;
+
       const trigger = (event) => {
         event.preventDefault();
         event.stopPropagation();
@@ -35,6 +38,13 @@
         theo.pause();
         intro.currentTime = 0;
         intro.play();
+
+        clearTimeout(triggerTimeout);
+
+        theo.removeEventListener('pointerdown', trigger);
+        triggerTimeout = setTimeout(() => {
+          intro.addEventListener('pointerdown', reset);
+        }, 500);
       };
 
       const reset = (event) => {
@@ -43,22 +53,16 @@
         theo.play();
         theo.classList.remove('hide');
         intro.pause();
+
+        clearTimeout(resetTimeout);
+
+        intro.removeEventListener('pointerdown', reset);
+        resetTimeout = setTimeout(() => {
+          theo.addEventListener('pointerdown', trigger);
+        }, 500);
       };
 
-      if ('onpointerdown' in document.documentElement) {
-        theo.addEventListener('pointerdown', trigger);
-        intro.addEventListener('pointerdown', reset);
-      } else if ('ontouchstart' in document.documentElement) {
-        theo.addEventListener('touchstart', trigger);
-        intro.addEventListener('touchstart', reset);
-      } else {
-        theo.addEventListener('click', trigger);
-        intro.addEventListener('click', reset);
-      }
-
-
-      intro.pause();
-      theo.play();
+      reset();
     </script>
   </body>
 </html>
