@@ -31,9 +31,7 @@
       let triggerTimeout;
       let resetTimeout;
 
-      const trigger = (event) => {
-        event.preventDefault();
-        event.stopPropagation();
+      const trigger = () => {
         theo.classList.add('hide');
         theo.pause();
         intro.currentTime = 0;
@@ -47,9 +45,7 @@
         }, 500);
       };
 
-      const reset = (event) => {
-        event.preventDefault();
-        event.stopPropagation();
+      const reset = () => {
         theo.play();
         theo.classList.remove('hide');
         intro.pause();
